@@ -14,7 +14,6 @@ from tensorflow.keras import backend
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Input, Conv2D, Lambda, Dense, Flatten
-from io import BytesIO
 from flask import Flask, render_template, request, redirect, session, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
@@ -133,12 +132,6 @@ def findpeople():
         return render_template('find.html', result=result)
 
 
-@app.route('/data')
-def data():
-    data = People.query.all()
-    return render_template('data.html', data=data)
-
-
 if __name__ == '__main__':
-    siamese_model = tf.keras.models.load_model('Model-epoch-10')
+    siamese_model = tf.keras.models.load_model('Model-epoch-4')
     app.run(host="localhost", port=5000, debug=True)
